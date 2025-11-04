@@ -5,31 +5,34 @@ on:
       - main
   pull_request:
     branches:
-      -main
-  jobs:
-      use: ubuntu-latest
-      
-      first:
-          name: checkout
-          run: actions/checkout@v2
+      - main
 
-          name: install requirements
-          run: pip install -r requirements.txt
-
-          name: test calculator
-          run: pytest test_calculator.py
+jobs:
+  build:
   
-      deploy:
-          need: first
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
 
-          name: checkout
-          run: actions/checkout@v2
-          
-          name: deployment
+      - name: install requirements
+        run: pip install -r requirements.txt
+
+      - name: test calculator
+        run: pytest test_calculator.py
+
+  deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+        - name: checkout
+          uses: actions/checkout@v2
+        
+        - name: deployment
           run: echo "deploying"
 
 
 
 
 
-    
