@@ -7,6 +7,8 @@ on:
     branches:
       -main
   jobs:
+      use: ubuntu-latest
+      
       first:
           name: checkout
           run: actions/checkout@v2
