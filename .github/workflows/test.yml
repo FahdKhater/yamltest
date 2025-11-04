@@ -1,0 +1,33 @@
+name: test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      -main
+  jobs:
+      first:
+          name: checkout
+          run: actions/checkout@v2
+
+          name: install requirements
+          run: pip install -r requirements.txt
+
+          name: test calculator
+          run: pytest test_calculator.py
+  
+      deploy:
+          need: first
+
+          name: checkout
+          run: actions/checkout@v2
+          
+          name: deployment
+          run: echo "deploying"
+
+
+
+
+
+    
